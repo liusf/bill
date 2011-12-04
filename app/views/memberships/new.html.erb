@@ -1,0 +1,14 @@
+<h2>Add Person to '<%=@group.name%>'</h2>
+<p>Enter short name:</p>
+<p style="color:red;font-weight:bold;"><%= flash[:alert] %></p>
+<p style="color:green;font-weight:bold;"><%= flash[:notice] %></p>
+<%= form_tag group_people_path(@group) do %>
+	<%= text_field_tag "short"%>
+	<%= submit_tag 'Add Person'%>
+<% end %>
+<p>Or, select a person: </p>
+<%= form_tag group_people_path(@group) do %>
+	<%= select_tag(:id, options_from_collection_for_select(Person.all, :id, :name)) %>
+	<%= submit_tag 'Add Person'%>
+<% end %>
+<br><div><%= link_to 'To Group', group_people_path(@group)%> | <%= link_to 'To People', people_path%> | <%= link_to 'New Person', new_person_path%></div>

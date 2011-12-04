@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Place:</b>
+  <%= @event.place.name %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @event.date %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @event.event_type.name %>
+</p>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Pay</th>
+		<th>Consume</th>
+	</tr>
+	<% @event.event_people.each do |p| %>
+	<tr>
+		<td><%= p.person.name %></td>
+		<td><%= p.pay %></td>
+		<td><%= p.consume%></td>
+	</tr>
+	<% end %>
+</table>
+
+<%= link_to 'Edit', edit_group_event_path(@group, @event) %> |
+<%= link_to 'To Events', group_events_path %>

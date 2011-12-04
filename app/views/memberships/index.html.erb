@@ -1,0 +1,17 @@
+Members in <span style="font-weight:bold;"><%= @group.name%></span>:
+<p><%= link_to 'Add Person', new_group_person_path %> <%= link_to 'Groups Index', groups_path %></p>
+<table>
+  <tr>
+    <th>short</th>
+    <th>name</th>
+    <th></th>
+  </tr>
+  <% @people.each do |person| %>
+  <tr>
+	  <td><%= link_to person.short, person_path(person) %></td>
+	  <td><%= person.name %></td>
+	  <td><%= link_to 'Remove From Group', group_person_path(@group, person), :method => :delete, :confirm => "Are you true?" %></td>
+  </tr>
+  <% end %>
+</table>
+

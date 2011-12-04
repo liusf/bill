@@ -1,0 +1,6 @@
+<p>Add Person to '<%=@group.name%>',<br> Enter short name:</p>
+<p style="color:red;font-weight:bold;"><%= flash[:alert] %></p>
+<%= form_for :group, @group, :url => {:action => "append"} do |f|%>
+	<%= text_field_tag "short"%>
+	<%= f.submit 'Add Person'%>
+<% end %>

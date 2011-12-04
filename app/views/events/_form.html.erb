@@ -1,0 +1,29 @@
+<%= form_for [@group, @event] do |f| %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= flash[:notice]%>
+  <div class="field">
+	  <%= f.label :place_id %><br />
+	  <%= f.select(:place_id, options_from_collection_for_select(Place.all, :id, :name, @event.place_id))%>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.datetime_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :event_type_id %><br />
+    <%= f.select(:event_type_id, options_from_collection_for_select(EventType.all, :id, :name, @event.event_type_id)) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

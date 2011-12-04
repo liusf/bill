@@ -1,0 +1,23 @@
+<%= form_tag add2_group_event_path(@group, @event) do |f|%>
+	<%= flash[:notice]%>
+  <div class="field">
+  <%= label_tag	'People' %><br />
+	  <table>
+		  <tr>
+			  <th>Name</th>
+			  <th>Pay</th>
+			  <th>Consume</th>
+		  </tr>
+	  <% @event.event_people.each do |person|%>
+	    <%= fields_for person, :index => person.id do |person_form|%>
+   		<tr>
+			<td><%= Person.find(person.person_id).name %><%= person_form.hidden_field :id %></td>
+			<td><%= person_form.text_field :pay, :size => 6 %></td>
+			<td><%= person_form.text_field :consume, :size => 6%></td>
+		</tr> 
+	    <% end %>
+	  <% end %>
+  </table>
+  <%= submit_tag 'OK'%>
+  </div>
+<% end %>

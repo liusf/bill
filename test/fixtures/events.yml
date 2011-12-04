@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  place_id: 1
+  date: 2011-06-25 12:10:44
+  type: MyString
+
+two:
+  place_id: 1
+  date: 2011-06-25 12:10:44
+  type: MyString
