@@ -9,6 +9,7 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @people.each do |person| %>
@@ -18,6 +19,7 @@
     <td><%= person.mobile %></td>
     <td><%= person.email %></td>
     <td><%= link_to 'Detail', person %></td>
+    <td><%= link_to 'Summary', summary_person_path(person) %></td>
     <td><%= link_to 'Edit', edit_person_path(person) %></td>
     <td><%= link_to 'Delete', person, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

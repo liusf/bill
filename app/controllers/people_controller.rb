@@ -81,4 +81,12 @@ class PeopleController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def summary
+    @person = Person.find params[:id]
+    if @person
+      query = "select groups.name as name, sum(event_people.pay) as pay, sum(event_people.consume) as consume from event_people, groups, events where groups.id = events.group_id and events.id = event_people.event_id and event_people.person_id = " + @person.id.to_s + " group by name"
+      @summary = Group.connection.select_all(query)
+    end
+  end
 end

@@ -17,7 +17,12 @@ Bill::Application.routes.draw do
     end
   end
 
-  resources :people, :places, :groups
+  resources :people do
+    member do
+      get 'summary'
+    end
+  end
+  resources :places, :groups
 
   root :to => 'groups#index'
   # The priority is based upon order of creation:
