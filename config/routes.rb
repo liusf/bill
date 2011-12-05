@@ -12,6 +12,9 @@ Bill::Application.routes.draw do
 			  post 'add2'
 		  end
 	  end
+    member do
+      get 'summary'
+    end
   end
 
   resources :people, :places, :groups

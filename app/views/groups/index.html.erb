@@ -7,6 +7,7 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @groups.each do |group| %>
@@ -15,6 +16,7 @@
     <td><%= link_to 'Add Person', new_group_person_path(group) %></td>
     <td><%= link_to 'Events', group_events_path(group) %></td>
     <td><%= link_to 'Members', group_people_path(group) %></td>
+    <td><%= link_to 'Summary', summary_group_path(group)  %>  </td>
     <td><%= link_to 'Rename', edit_group_path(group) %></td>
     <td><%= link_to 'Delete', group, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

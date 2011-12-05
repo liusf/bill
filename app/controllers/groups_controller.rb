@@ -82,20 +82,28 @@ class GroupsController < ApplicationController
   end
 
   def add
-	@group = Group.find(params[:id])
+    @group = Group.find(params[:id])
   end
 
   def append
-	@group = Group.find(params[:id])
-	s = params[:short]
-	p = Person.find_by_short(s)
-	if p
-		if !@group.people.find_by_id(p.id)
-			@group.people.push(p)
-		end
-		redirect_to(@group, :notice => 'succeeded to add ' + p.name)
-	else
-		redirect_to :back, :alert => 'cannot find person ' + s
-	end
+    @group = Group.find(params[:id])
+    s = params[:short]
+    p = Person.find_by_short(s)
+    if p
+      if !@group.people.find_by_id(p.id)
+        @group.people.push(p)
+      end
+      redirect_to(@group, :notice => 'succeeded to add ' + p.name)
+    else
+      redirect_to :back, :alert => 'cannot find person ' + s
+    end
+  end
+
+  def summary
+    @group = Group.find(params[:id])
+    if @group
+      query = "select people.name as name, sum(event_people.pay) as pay, sum(event_people.consume) as consume from event_people, people, events where people.id = event_people.person_id and events.id = event_people.event_id and events.group_id = " + @group.id.to_s + " group by name"
+      @summary = Group.connection.select_all(query)
+    end
   end
 end
