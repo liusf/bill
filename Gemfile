@@ -9,8 +9,11 @@ gem 'sqlite3'
 
 gem 'net-ldap'
 
+gem 'rake', '0.8.7'
+
 group :production do
-  gem 'mysql'
+  gem 'mysql2'
+  gem 'activerecord-mysql2-adapter'
 end
 
 # Use unicorn as the web server

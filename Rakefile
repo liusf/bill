@@ -3,5 +3,8 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
+#require 'rdoc/task'
+
+Rake.application.options.ignore_deprecate = true
 
 Bill::Application.load_tasks
