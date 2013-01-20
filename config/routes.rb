@@ -1,30 +1,21 @@
 Bill::Application.routes.draw do
 
+  resources :groups do
+    resources :users
+	end
+
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create
+    get 'logout' => :destroy
+    get 'users' => :users
+    get 'index' => :index
+  end
+
   resources :event_types
 
-  resources :groups do
-	  resources :people, :controller => :memberships
-	  resources :events do
-		  member do
-			  get 'detail'
-			  post 'add'
-			  get 'detail2'
-			  post 'add2'
-		  end
-	  end
-    member do
-      get 'summary'
-    end
-  end
+  resources :people, :places, :events
 
-  resources :people do
-    member do
-      get 'summary'
-    end
-  end
-  resources :places, :groups
-
-  root :to => 'groups#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -74,7 +65,7 @@ Bill::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "sessions#index"
 
   # See how all your routes lay out with "rake routes"
 

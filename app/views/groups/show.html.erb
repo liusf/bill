@@ -5,13 +5,6 @@
   <%= @group.name %>
 </p>
 
-<p>
-<b>People in this Group:</b>
-<% @group.people.each do |person|%>
-	<br><%= link_to person.name, person_path %>
-<% end %>
-</p>
 
-<%= link_to 'Add Person', new_group_person_path(@group)%>
-<%= link_to 'New Event', new_group_event_path(@group) %>
+<%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>

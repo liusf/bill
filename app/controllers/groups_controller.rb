@@ -1,34 +1,35 @@
 class GroupsController < ApplicationController
+
   # GET /groups
-  # GET /groups.xml
+  # GET /groups.json
   def index
-    @groups = Group.all
+    @groups = @user.groups.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @groups }
+      format.json  { render :json => @groups }
     end
   end
 
   # GET /groups/1
-  # GET /groups/1.xml
+  # GET /groups/1.json
   def show
     @group = Group.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @group }
+      format.json  { render :json => @group }
     end
   end
 
   # GET /groups/new
-  # GET /groups/new.xml
+  # GET /groups/new.json
   def new
     @group = Group.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @group }
+      format.json  { render :json => @group }
     end
   end
 
@@ -38,72 +39,48 @@ class GroupsController < ApplicationController
   end
 
   # POST /groups
-  # POST /groups.xml
+  # POST /groups.json
   def create
     @group = Group.new(params[:group])
 
     respond_to do |format|
       if @group.save
+        #add current user to group
+        Membership.create(:user_id => @user.id, :group_id => @group.id)
         format.html { redirect_to(@group, :notice => 'Group was successfully created.') }
-        format.xml  { render :xml => @group, :status => :created, :location => @group }
+        format.json  { respond_succ @group }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
+        format.json  { render :json => fail("unprocessable_entity") }
       end
     end
   end
 
   # PUT /groups/1
-  # PUT /groups/1.xml
+  # PUT /groups/1.json
   def update
     @group = Group.find(params[:id])
 
     respond_to do |format|
       if @group.update_attributes(params[:group])
         format.html { redirect_to(@group, :notice => 'Group was successfully updated.') }
-        format.xml  { head :ok }
+        format.json  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @group.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /groups/1
-  # DELETE /groups/1.xml
+  # DELETE /groups/1.json
   def destroy
     @group = Group.find(params[:id])
     @group.destroy
 
     respond_to do |format|
       format.html { redirect_to(groups_url) }
-      format.xml  { head :ok }
-    end
-  end
-
-  def add
-    @group = Group.find(params[:id])
-  end
-
-  def append
-    @group = Group.find(params[:id])
-    s = params[:short]
-    p = Person.find_by_short(s)
-    if p
-      if !@group.people.find_by_id(p.id)
-        @group.people.push(p)
-      end
-      redirect_to(@group, :notice => 'succeeded to add ' + p.name)
-    else
-      redirect_to :back, :alert => 'cannot find person ' + s
-    end
-  end
-
-  def summary
-    @group = Group.find(params[:id])
-    if @group
-      query = "select people.name as name, sum(event_people.pay) as pay, sum(event_people.consume) as consume from event_people, people, events where people.id = event_people.person_id and events.id = event_people.event_id and events.group_id = " + @group.id.to_s + " group by name"
-      @summary = Group.connection.select_all(query)
+      format.json  { head :ok }
     end
   end
 end

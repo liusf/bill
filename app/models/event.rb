@@ -1,6 +1,10 @@
 class Event < ActiveRecord::Base
-	has_many :event_people
-	has_many :people, :through => :event_people
+  validates :event_type_id, :presence => true
+  validates :group_id, :presence => true
+  validates :place_id, :presence => true
+
+	has_many :event_users
+	has_many :users, :through => :event_users
 
 	belongs_to :place
 	belongs_to :group

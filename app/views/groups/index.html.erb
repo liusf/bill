@@ -1,10 +1,8 @@
-﻿<h1>Listing groups</h1>
+<h1>Listing groups</h1>
 
 <table>
   <tr>
     <th>Name</th>
-    <th></th>
-    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,17 +11,13 @@
 <% @groups.each do |group| %>
   <tr>
     <td><%= group.name %></td>
-    <td><%= link_to 'Add Person', new_group_person_path(group) %></td>
-    <td><%= link_to 'Events', group_events_path(group) %></td>
-    <td><%= link_to 'Members', group_people_path(group) %></td>
-    <td><%= link_to 'Summary', summary_group_path(group)  %>  </td>
-    <td><%= link_to 'Rename', edit_group_path(group) %></td>
-    <td><%= link_to 'Delete', group, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', group %></td>
+    <td><%= link_to 'Edit', edit_group_path(group) %></td>
+    <td><%= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Group', new_group_path %><br>
-<%= link_to 'New Person', new_person_path %>
+<%= link_to 'New Group', new_group_path %>

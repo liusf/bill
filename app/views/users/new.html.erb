@@ -1,0 +1,10 @@
+<h1>Add User to group</h1>
+<p><%= flash[:notice] %></p>
+<%= form_tag group_users_url do %>
+<div>
+  <%= text_field_tag :ids %>
+</div>
+<div>
+  <%= submit_tag "ADD"%>
+</div>
+<% end %>
